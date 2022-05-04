@@ -4,9 +4,9 @@
 -- 
 -- Create Date: 09/30/2021 08:07:54 AM
 -- Design Name: 2:1 MULTIPLEXER
--- Module Name: hex_mux -Behavioral
--- Project Name: COMPUTER ASSIGNMENT #2
--- Target Devices: BARREL SHIFTER/ROTATOR B
+-- Module Name: MUX, CONQ
+-- Project Name: 
+-- Target Devices: DIVIDER
 -- Tool Versions: 1.0
 -- Description: 
 -- 
@@ -31,16 +31,20 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity hex_mux is
-    Port ( a : in STD_LOGIC_VECTOR (15 downto 0);
-           b : in STD_LOGIC_VECTOR (15 downto 0);
-           sel : in STD_LOGIC;
-           c : out STD_LOGIC_VECTOR (15 downto 0));
-end hex_mux;
+entity COMP is
+    Port ( a : in STD_LOGIC_VECTOR (7 downto 0);
+           b : in STD_LOGIC_VECTOR (7 downto 0);
+           c : out STD_LOGIC_VECTOR (7 downto 0));
+end COMP;
 
-architecture Behavioral of hex_mux is
+architecture Behavioral of COMP is
+    
+signal QA: std_logic_vector(2 downto 0);
 
 begin
-c <= a WHEN sel ='1' ELSE
-b;
+    
+with (unsigned(a) < unsigned(b)) select
+c <= std_logic_vector(a) when true,
+std_logic_vector((unsigned(a) - unsigned(b))) when false;
+
 end Behavioral;
